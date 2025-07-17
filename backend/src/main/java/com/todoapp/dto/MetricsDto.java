@@ -7,10 +7,10 @@ public class MetricsDto {
     private Map<String, Double> averageByPriority; // Por prioridad
     private int totalCompletedTodos;
     
-    // Constructor vacío
+    // empty constructor
     public MetricsDto() {}
     
-    // Constructor con parámetros
+    // constructor with parameters
     public MetricsDto(double averageTimeToComplete, Map<String, Double> averageByPriority, 
                      int totalCompletedTodos) {
         this.averageTimeToComplete = averageTimeToComplete;
@@ -18,7 +18,7 @@ public class MetricsDto {
         this.totalCompletedTodos = totalCompletedTodos;
     }
     
-    // Getters y Setters
+    // getters and setters
     public double getAverageTimeToComplete() {
         return averageTimeToComplete;
     }

@@ -25,14 +25,14 @@ public class Todo {
     
     private LocalDateTime creationDate;
     
-    // Constructor sin parámetros
+    // constructor without parameters
     public Todo() {
         this.id = UUID.randomUUID().toString();
         this.creationDate = LocalDateTime.now();
         this.done = false;
     }
     
-    // Constructor con parámetros
+    // constructor with parameters
     public Todo(String text, Priority priority, LocalDateTime dueDate) {
         this();
         this.text = text;

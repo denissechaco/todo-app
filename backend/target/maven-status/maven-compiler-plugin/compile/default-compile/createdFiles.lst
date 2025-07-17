@@ -1,4 +1,8 @@
+com/todoapp/dto/MetricsDto.class
+com/todoapp/service/TodoServiceImpl.class
 com/todoapp/model/Todo.class
+com/todoapp/exception/TodoNotFoundException.class
+com/todoapp/service/TodoService.class
 com/todoapp/TodoApplication$1.class
 com/todoapp/TodoApplication.class
 com/todoapp/repository/TodoRepositoryImpl.class

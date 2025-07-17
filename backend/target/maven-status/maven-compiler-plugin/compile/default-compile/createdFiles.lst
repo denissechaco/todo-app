@@ -1,2 +1,6 @@
+com/todoapp/model/Todo.class
 com/todoapp/TodoApplication$1.class
 com/todoapp/TodoApplication.class
+com/todoapp/repository/TodoRepositoryImpl.class
+com/todoapp/repository/TodoRepository.class
+com/todoapp/model/Priority.class

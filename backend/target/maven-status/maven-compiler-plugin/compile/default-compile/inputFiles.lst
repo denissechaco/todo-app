@@ -1,9 +1,15 @@
+/workspaces/todo-app/backend/src/main/java/com/todoapp/dto/CreateTodoRequest.java
 /workspaces/todo-app/backend/src/main/java/com/todoapp/model/Todo.java
 /workspaces/todo-app/backend/src/main/java/com/todoapp/repository/TodoRepositoryImpl.java
+/workspaces/todo-app/backend/src/main/java/com/todoapp/controller/TodoController.java
 /workspaces/todo-app/backend/src/main/java/com/todoapp/service/TodoServiceImpl.java
 /workspaces/todo-app/backend/src/main/java/com/todoapp/TodoApplication.java
+/workspaces/todo-app/backend/src/main/java/com/todoapp/dto/UpdateTodoRequest.java
+/workspaces/todo-app/backend/src/main/java/com/todoapp/config/CorsConfig.java
 /workspaces/todo-app/backend/src/main/java/com/todoapp/model/Priority.java
-/workspaces/todo-app/backend/src/main/java/com/todoapp/exception/TodoNotFoundException.java
 /workspaces/todo-app/backend/src/main/java/com/todoapp/dto/MetricsDto.java
 /workspaces/todo-app/backend/src/main/java/com/todoapp/repository/TodoRepository.java
+/workspaces/todo-app/backend/src/main/java/com/todoapp/controller/GlobalExceptionHandler.java
 /workspaces/todo-app/backend/src/main/java/com/todoapp/service/TodoService.java
+/workspaces/todo-app/backend/src/main/java/com/todoapp/config/SecurityConfig.java
+/workspaces/todo-app/backend/src/main/java/com/todoapp/exception/TodoNotFoundException.java

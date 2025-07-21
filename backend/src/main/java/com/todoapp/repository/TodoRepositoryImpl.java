@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Repository
 public class TodoRepositoryImpl implements TodoRepository {
     
-    // Almacenamiento en memoria usando ConcurrentHashMap (thread-safe)
+    // storage in memory for simplicity
     private final Map<String, Todo> todos = new ConcurrentHashMap<>();
     
     @Override
@@ -47,10 +47,10 @@ public class TodoRepositoryImpl implements TodoRepository {
     public Page<Todo> findAllWithFilters(String nameFilter, Priority priorityFilter, 
                                        Boolean doneFilter, Pageable pageable) {
         
-        // Comenzamos con todos los TODOs
+        // all the to do items
         List<Todo> filteredTodos = new ArrayList<>(todos.values());
         
-        // Aplicar filtro por nombre (si existe)
+        // filter by name (if exists)
         if (nameFilter != null && !nameFilter.trim().isEmpty()) {
             filteredTodos = filteredTodos.stream()
                 .filter(todo -> todo.getText().toLowerCase()
@@ -58,29 +58,29 @@ public class TodoRepositoryImpl implements TodoRepository {
                 .collect(Collectors.toList());
         }
         
-        // Aplicar filtro por prioridad (si existe)
+        // filter by priority (if exists)
         if (priorityFilter != null) {
             filteredTodos = filteredTodos.stream()
                 .filter(todo -> todo.getPriority() == priorityFilter)
                 .collect(Collectors.toList());
         }
         
-        // Aplicar filtro por estado done/undone (si existe)
+        // filter by done status (if exists)
         if (doneFilter != null) {
             filteredTodos = filteredTodos.stream()
                 .filter(todo -> todo.isDone() == doneFilter)
                 .collect(Collectors.toList());
         }
         
-        // Aplicar ordenamiento
+        // sorting
         if (pageable.getSort().isSorted()) {
             filteredTodos.sort((t1, t2) -> {
-                // Implementar ordenamiento por prioridad y fecha
+                // sort by the properties defined in pageable (priority, dueDate, creationDate)
                 return compareTodos(t1, t2, pageable);
             });
         }
         
-        // Aplicar paginación
+        // pagination
         int start = (int) pageable.getOffset();
         int end = Math.min(start + pageable.getPageSize(), filteredTodos.size());
         
@@ -103,9 +103,10 @@ public class TodoRepositoryImpl implements TodoRepository {
             .collect(Collectors.toList());
     }
     
-    // Método auxiliar para comparar TODOs en el ordenamiento
+    // auxiliary method to compare todos based on pageable sort
     private int compareTodos(Todo t1, Todo t2, Pageable pageable) {
-        // Implementación básica - se puede mejorar
+        // basic implementation for sorting
+        // if i have enouhg time, i would implement a more complex logic
         pageable.getSort().forEach(order -> {
             String property = order.getProperty();
             boolean ascending = order.isAscending();
@@ -128,7 +129,7 @@ public class TodoRepositoryImpl implements TodoRepository {
             }
         });
         
-        return 0; // Simplificado por ahora
+        return 0; 
     }
     
     private int comparePriority(Priority p1, Priority p2) {
@@ -144,8 +145,8 @@ public class TodoRepositoryImpl implements TodoRepository {
     
     private int compareDueDate(Todo t1, Todo t2) {
         if (t1.getDueDate() == null && t2.getDueDate() == null) return 0;
-        if (t1.getDueDate() == null) return 1;  // Sin fecha va al final
-        if (t2.getDueDate() == null) return -1; // Sin fecha va al final
+        if (t1.getDueDate() == null) return 1;  // without due date goes to the end
+        if (t2.getDueDate() == null) return -1; // without due date goes to the end
         
         return t1.getDueDate().compareTo(t2.getDueDate());
     }

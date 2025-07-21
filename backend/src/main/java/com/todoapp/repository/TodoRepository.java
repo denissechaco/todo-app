@@ -9,14 +9,14 @@ import java.util.Optional;
 
 public interface TodoRepository {
     
-    // Operaciones básicas CRUD
+    // basic CRUD operations
     Todo save(Todo todo);
     Optional<Todo> findById(String id);
     List<Todo> findAll();
     void deleteById(String id);
     boolean existsById(String id);
     
-    // Operaciones con filtros y paginación
+    // operations with filters and pagination
     Page<Todo> findAllWithFilters(
         String nameFilter,
         Priority priorityFilter,
@@ -24,7 +24,7 @@ public interface TodoRepository {
         Pageable pageable
     );
     
-    // Para las métricas
+    // for the metrics (i guess)
     List<Todo> findAllDone();
     List<Todo> findAllDoneByPriority(Priority priority);
 }

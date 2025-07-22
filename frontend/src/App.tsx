@@ -46,8 +46,8 @@ const AppContent: React.FC = () => {
     <div className="App">
       {/* Header */}
       <header className="header">
-        <h1>📋 Todo List Manager</h1>
-        <p>Manage your daily tasks efficiently</p>
+        <h1>To do List Manager</h1>
+        <p>Let's get the job done</p>
       </header>
 
       {/* Error Message */}
@@ -210,6 +210,13 @@ const AppContent: React.FC = () => {
     </div>
   );
 };
+
+const handleDeleteTodo = async (id: string) => {
+  if (window.confirm('Are you sure you want to delete this to do?')) {
+    await deleteTodo(id);
+  }
+}
+
 
 // Main App Component with Provider
 const App: React.FC = () => {

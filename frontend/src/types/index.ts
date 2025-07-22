@@ -56,3 +56,44 @@ export interface PriorityMetric {
   averageCompletionTime: number;
   count: number;
 }
+
+export interface FilterState {
+  name: string;
+  priority?: Priority;
+  done?: boolean;
+}
+
+export interface SortConfig {
+  field: 'priority' | 'dueDate' | null;
+  direction: 'asc' | 'desc';
+}
+
+export interface PaginationInfo {
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+  itemsPerPage: number;
+}
+
+export interface TodoResponse {
+  content: Todo[];
+  totalElements: number;
+  totalPages: number;
+  size: number;
+  number: number;
+  first: boolean;
+  last: boolean;
+}
+
+export interface Metrics {
+  overall: {
+    averageCompletionTime: number; // in milliseconds
+    totalCompletedTasks: number;
+  };
+  byPriority: {
+    [key in Priority]: {
+      averageCompletionTime: number;
+      totalCompletedTasks: number;
+    };
+  };
+}

@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
-import { Priority, FilterState } from '../types';
+import { Priority, FilterState, TodoSorting } from '../types';
 
-interface TodoFiltersProps {
-  onFilterChange: (filters: FilterState) => void;
+export interface TodoFiltersProps {
+  filters: FilterState;
+  sorting: TodoSorting;
+  onFiltersChange: (filters: FilterState) => void;
+  onSortingChange: (sorting: TodoSorting) => void;
   onNewTodo: () => void;
 }
 
-const TodoFilters: React.FC<TodoFiltersProps> = ({ onFilterChange, onNewTodo }) => {
-  const [filters, setFilters] = useState<FilterState>({
-    name: '',
-    priority: undefined,
-    done: undefined
-  });
-
+const TodoFilters: React.FC<TodoFiltersProps> = ({
+  filters,
+  sorting,
+  onFiltersChange,
+  onSortingChange,
+  onNewTodo
+}) => {
+  
   const handleFilterChange = (key: keyof FilterState, value: any) => {
     const newFilters = { ...filters, [key]: value };
-    setFilters(newFilters);
-    onFilterChange(newFilters);
+    onFiltersChange(newFilters);
   };
 
   return (
@@ -28,8 +31,8 @@ const TodoFilters: React.FC<TodoFiltersProps> = ({ onFilterChange, onNewTodo }) 
             id="name-filter"
             type="text"
             placeholder="Filter by name..."
-            value={filters.name}
-            onChange={(e) => handleFilterChange('name', e.target.value)}
+            value={filters.text}
+            onChange={(e) => handleFilterChange('text', e.target.value)}
             className="filter-input"
           />
         </div>

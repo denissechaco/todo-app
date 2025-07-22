@@ -6,13 +6,16 @@ interface TodoModalProps {
   todo?: Todo;
   onClose: () => void;
   onSave: (todo: CreateTodoRequest | UpdateTodoRequest) => void;
+  title: string; // a ver si funciona
+  initialData?: Todo;
 }
 
 const TodoModal: React.FC<TodoModalProps> = ({
   isOpen,
-  todo,
+  initialData,
   onClose,
-  onSave
+  onSave,
+  title
 }) => {
   const [formData, setFormData] = useState({
     text: '',
@@ -23,12 +26,12 @@ const TodoModal: React.FC<TodoModalProps> = ({
 
   useEffect(() => {
     if (isOpen) {
-      if (todo) {
+      if (initialData) {
         // Edit mode
         setFormData({
-          text: todo.text,
-          priority: todo.priority,
-          dueDate: todo.dueDate ? todo.dueDate.toString().split('T')[0] : ''
+          text: initialData.text,
+          priority: initialData.priority,
+          dueDate: initialData.dueDate ? initialData.dueDate.toString().split('T')[0] : ''
         });
       } else {
         // Create mode
@@ -40,7 +43,7 @@ const TodoModal: React.FC<TodoModalProps> = ({
       }
       setErrors({});
     }
-  }, [isOpen, todo]);
+  }, [isOpen, initialData]);
 
   const validateForm = () => {
     const newErrors: {[key: string]: string} = {};
@@ -68,9 +71,9 @@ const TodoModal: React.FC<TodoModalProps> = ({
       dueDate: formData.dueDate ? new Date(formData.dueDate) : undefined
     };
 
-    if (todo) {
+    if (initialData) {
       // Edit mode
-      onSave({ ...todoData, id: todo.id } as UpdateTodoRequest);
+      onSave({ ...todoData, id: initialData.id } as UpdateTodoRequest);
     } else {
       // Create mode
       onSave(todoData as CreateTodoRequest);
@@ -91,7 +94,7 @@ const TodoModal: React.FC<TodoModalProps> = ({
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>{todo ? 'Edit Todo' : 'New Todo'}</h2>
+          <h2>{title}</h2>
           <button
             onClick={onClose}
             className="close-btn"
@@ -165,7 +168,7 @@ const TodoModal: React.FC<TodoModalProps> = ({
               type="submit"
               className="btn-primary"
             >
-              {todo ? 'Update' : 'Create'} Todo
+              {initialData ? 'Update' : 'Create'} Todo
             </button>
           </div>
         </form>

@@ -7,6 +7,7 @@ import TodoModal from './components/TodoModal';
 import Pagination from './components/Pagination';
 import Metrics from './components/Metrics';
 import ErrorMessage from './components/ErrorMessage';
+import { Todo } from './types';
 
 // Main App Content Component (inside TodoProvider)
 const AppContent: React.FC = () => {
@@ -29,8 +30,8 @@ const AppContent: React.FC = () => {
     setShowCreateModal(true);
   };
 
-  const handleEditTodo = (todoId: string) => {
-    setEditingTodo(todoId);
+  const handleEditTodo = (todo: Todo) => {
+    setEditingTodo(todo.id);
   };
 
   const handleCloseModal = () => {
@@ -41,6 +42,13 @@ const AppContent: React.FC = () => {
   const getTodoById = (id: string) => {
     return state.todos?.content.find(todo => todo.id === id);
   };
+
+  const handleToggleDone = (id: string) => {
+  const todo = state.todos?.content.find(t => t.id === id);
+  if (todo) {
+    actions.toggleTodoDone(id, todo.done);
+  }
+};
 
   return (
     <div className="App">
@@ -110,7 +118,7 @@ const AppContent: React.FC = () => {
             {/* Todo Table */}
             <TodoTable
               todos={state.todos.content}
-              onToggleDone={actions.toggleTodoDone}
+              onToggleDone={handleToggleDone}
               onEdit={handleEditTodo}
               onDelete={actions.deleteTodo}
               sorting={state.sorting}
@@ -123,6 +131,8 @@ const AppContent: React.FC = () => {
                 currentPage={state.currentPage}
                 totalPages={state.todos.totalPages}
                 onPageChange={actions.setCurrentPage}
+                totalItems={state.todos.totalElements}
+                itemsPerPage={state.todos.size}
               />
             )}
 
@@ -211,11 +221,6 @@ const AppContent: React.FC = () => {
   );
 };
 
-const handleDeleteTodo = async (id: string) => {
-  if (window.confirm('Are you sure you want to delete this to do?')) {
-    await deleteTodo(id);
-  }
-}
 
 
 // Main App Component with Provider

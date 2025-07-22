@@ -56,7 +56,11 @@ const initialState: TodoState = {
   metrics: null,
   loading: false,
   error: null,
-  filters: {},
+  filters: {
+    text: '',      // <-- Obligatorio y siempre string
+    priority: undefined,
+    done: undefined,
+  },
   sorting: {},
   currentPage: 0,
 };

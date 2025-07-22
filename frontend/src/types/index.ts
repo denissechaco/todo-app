@@ -38,6 +38,11 @@ export interface TodoSorting {
   sortDirection?: 'asc' | 'desc';
 }
 
+export interface SortConfig {
+  field: 'priority' | 'dueDate' | null;
+  direction: 'asc' | 'desc';
+}
+
 export interface PaginatedResponse<T> {
   content: T[];
   totalElements: number;
@@ -58,15 +63,13 @@ export interface PriorityMetric {
 }
 
 export interface FilterState {
-  name: string;
+  text?: string;
   priority?: Priority;
   done?: boolean;
 }
 
-export interface SortConfig {
-  field: 'priority' | 'dueDate' | null;
-  direction: 'asc' | 'desc';
-}
+
+
 
 export interface PaginationInfo {
   currentPage: number;
@@ -83,6 +86,14 @@ export interface TodoResponse {
   number: number;
   first: boolean;
   last: boolean;
+}
+
+export interface TodoModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onSave: (updates: CreateTodoRequest | UpdateTodoRequest) => Promise<void>;
+  title: string; // <-- agrega esto
+  initialData?: Todo;
 }
 
 export interface Metrics {

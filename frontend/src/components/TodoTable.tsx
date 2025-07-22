@@ -1,27 +1,27 @@
 import React from 'react';
-import { Todo, SortConfig, Priority } from '../types';
+import { Todo, TodoSorting, SortConfig, Priority } from '../types';
 import { formatDate, getDueDateBackgroundColor } from '../utils';
 
 interface TodoTableProps {
   todos: Todo[];
-  onSort: (field: 'priority' | 'dueDate') => void;
-  sortConfig: SortConfig;
   onToggleDone: (id: string) => void;
   onEdit: (todo: Todo) => void;
   onDelete: (id: string) => void;
+  sorting: TodoSorting; // <-- agrega esto
+  onSortingChange: (sorting: TodoSorting) => void; // <-- y esto si lo usas
 }
 
 const TodoTable: React.FC<TodoTableProps> = ({
   todos,
-  onSort,
-  sortConfig,
+  sorting,
+  onSortingChange,
   onToggleDone,
   onEdit,
   onDelete
 }) => {
   const getSortIcon = (field: 'priority' | 'dueDate') => {
-    if (sortConfig.field === field) {
-      return sortConfig.direction === 'asc' ? ' ↑' : ' ↓';
+    if (sorting.sortBy === field) {
+      return sorting.sortDirection === 'asc' ? ' ↑' : ' ↓';
     }
     return ' ↕';
   };
@@ -53,13 +53,19 @@ const TodoTable: React.FC<TodoTableProps> = ({
             <th>Task</th>
             <th 
               className="sortable-header"
-              onClick={() => onSort('priority')}
+              onClick={() => onSortingChange({ ...sorting, sortBy: 'priority', sortDirection: sorting.sortDirection === 'asc' ? 'desc' : 'asc' })}
             >
               Priority {getSortIcon('priority')}
             </th>
             <th 
               className="sortable-header"
-              onClick={() => onSort('dueDate')}
+              onClick={() =>
+                onSortingChange({
+                  ...sorting,
+                  sortBy: 'dueDate',
+                  sortDirection: sorting.sortBy === 'dueDate' && sorting.sortDirection === 'asc' ? 'desc' : 'asc'
+                })
+              }
             >
               Due Date {getSortIcon('dueDate')}
             </th>
